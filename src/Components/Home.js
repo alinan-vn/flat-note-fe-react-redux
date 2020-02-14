@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Form, Segment } from 'semantic-ui-react'
 import NoteList from './Notes'
-import { NoteForm } from './NoteForm'
+import NoteForm from './NoteForm'
 
 const Dashboard = () => (
   <Grid>

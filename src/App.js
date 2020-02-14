@@ -6,7 +6,7 @@ import {
 import NavBar from './Components/NavBar';
 import backgroundAbout from './Components/About'
 import Home from './Components/Home'
-import { NewNote } from './Components/NoteForm'
+import NewNote  from './Components/NewNote'
 import Login from './Components/Login'
 
 

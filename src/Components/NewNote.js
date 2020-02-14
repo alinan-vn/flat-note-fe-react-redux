@@ -1,15 +1,15 @@
 import React from 'react'
-import { Grid, Form } from 'semantic-ui-react'
+import { Grid, Form, Segment } from 'semantic-ui-react'
 
 
-class NoteForm extends React.Component {
-
-
-
-
-    render () {
-        return(
-            <Grid.Column width={10}>
+const NewNote = () => {
+    return (
+      <Grid>
+          <Grid.Column width={3}>
+  
+          </Grid.Column>
+  
+          <Grid.Column width={10}>
                 <Form>
                     <Form.Input 
                         fluid label='Title' 
@@ -21,30 +21,9 @@ class NoteForm extends React.Component {
                     <Form.Button>Save</Form.Button>
                 </Form>
             </Grid.Column>
-        )
-    }
-}
+  
+      </Grid>
+    )   
+  }
 
-
-
-export default NoteForm
-
-
-
-// const NewNote = () => {
-//   return (
-//     <Grid>
-//         <Grid.Column width={3}>
-
-//         </Grid.Column>
-
-//         <NoteForm />
-
-//     </Grid>
-//   )   
-// }
-
-// export {
-//   NoteForm,
-//   NewNote  
-// } 
+export default NewNote
