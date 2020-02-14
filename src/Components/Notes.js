@@ -1,11 +1,15 @@
 import React from 'react'
 import { Grid, Form, Segment } from 'semantic-ui-react'
+import { NoteForm } from './NoteForm'
+import { connect } from 'react-redux'
+import { changeNoteId } from '../Actions/NoteActions'
 
-export default class NoteList extends React.Component {
+class NoteList extends React.Component {
     constructor(){
         super()
         this.state = {
-            notes: null
+            notes: null,
+            clickedNoteId: null,
         }
     }
 
@@ -33,14 +37,23 @@ export default class NoteList extends React.Component {
             return notesArray.map(note => {
                 return (
                     <div key={note.id}>
-                        <div className='ui divider' key={note.id}>
+                        <div className='ui divider' key={note.id} onClick={() => this.handleChangeNote(note.id) }>
                             <p>{ note.title }</p>   
                         </div>
                         <hr />
                     </div>
                 )
             })
+    }
+
+    handleChangeNote = (noteId) => {
+        console.log('changeing note?', noteId)
+        this.setState = {
+            clickedNoteId: noteId
         }
+        this.props.changeNoteId(noteId)
+    }
+
 
     componentDidMount(){
         this.FetchNotes()
@@ -58,38 +71,18 @@ export default class NoteList extends React.Component {
     }
 }
 
-
-
-
-
-
-
-
-// const noteListCreator = (notesArray) => {
-//     // return notesArray.map(note => {
-//     //     return (
-//     //         <div className='ui divider'>
-//     //             <p>{ note.title }</p>
-//     //         </div>
-//     //     )
-//     // })
-
-//     console.log('in', notesArray)
+// probably unneccessary
+// mapStateToProps = (state) => {
+//     return { 
+//     }
 // }
 
-// const NoteList = () => {
-//     return (
-//         <Grid.Column width={3}>
-//             {/* <FetchNotes /> */}
-//             <Segment>
-//                 <div className="ui divider">
-//                     Some stuff
-//                 </div>
-//                 <hr />
-//                 { noteListCreator(FetchNotes) }
-//                 </Segment>
-//         </Grid.Column>
-//     )
-// }
+const mapDispatchToProps = dispatch => {
+    return {
+        changeNoteId: (noteId) => {
+            dispatch(changeNoteId(noteId))
+        }
+    }
+}
 
-// export default NoteList
+export default connect(null, mapDispatchToProps)(NoteList)
