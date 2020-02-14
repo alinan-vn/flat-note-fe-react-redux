@@ -1,12 +1,18 @@
 import React from 'react'
-import { Grid, Form, Segment } from 'semantic-ui-react'
+import { Grid, Form } from 'semantic-ui-react'
+import { connect } from 'react-redux'
 
 
-const NewNote = () => {
-    return (
-      <Grid>
+
+
+
+class NewNote extends React.Component {
+
+
+    render (){
+        return (
+            <Grid>
           <Grid.Column width={3}>
-  
           </Grid.Column>
   
           <Grid.Column width={10}>
@@ -23,7 +29,16 @@ const NewNote = () => {
             </Grid.Column>
   
       </Grid>
-    )   
-  }
+        )
+    }
+}
 
-export default NewNote
+
+const mapStateToProps = (state) => {
+    return {
+        currentNote: state.currentNote
+    }
+
+}
+
+export default connect(mapStateToProps)(NewNote)

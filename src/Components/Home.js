@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Form, Segment } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 import NoteList from './Notes'
 import NoteForm from './NoteForm'
 

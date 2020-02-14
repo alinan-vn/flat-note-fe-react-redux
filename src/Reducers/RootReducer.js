@@ -11,13 +11,13 @@ function rootReducer (
         case 'FIRST_CASE':
             return console.log('DID FIRST CASE SUCCESS')
         case 'CHANGE_NOTE':
-            console.log('change note action, current note is now:', action.noteId )
+            console.log('change note action, current note is now:', action.note )
             return {
                 ...state,
-                currentNote: action.noteId
+                currentNote: action.note
             }
         default:
-            console.log('SETTLED FOR DEFAULT')
+            // console.log('SETTLED FOR DEFAULT')
             return state
     }
 }

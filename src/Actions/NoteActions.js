@@ -1,6 +1,6 @@
-export const changeNoteId = (noteId) => {
+export const changeNote = (note) => {
     return {
         type: 'CHANGE_NOTE',
-        noteId
+        note
     }
 }

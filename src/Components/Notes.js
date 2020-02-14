@@ -1,8 +1,8 @@
 import React from 'react'
-import { Grid, Form, Segment } from 'semantic-ui-react'
-import { NoteForm } from './NoteForm'
+import { Grid, Segment } from 'semantic-ui-react'
+// import { NoteForm } from './NoteForm'
 import { connect } from 'react-redux'
-import { changeNoteId } from '../Actions/NoteActions'
+import { changeNote } from '../Actions/NoteActions'
 
 class NoteList extends React.Component {
     constructor(){
@@ -48,10 +48,11 @@ class NoteList extends React.Component {
 
     handleChangeNote = (noteId) => {
         console.log('changeing note?', noteId)
+        let findNote = this.state.notes.filter(note => note.id === noteId)
         this.setState = {
-            clickedNoteId: noteId
+            clickedNoteId: findNote
         }
-        this.props.changeNoteId(noteId)
+        this.props.changeNote(findNote)
     }
 
 
@@ -79,8 +80,8 @@ class NoteList extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        changeNoteId: (noteId) => {
-            dispatch(changeNoteId(noteId))
+        changeNote: (note) => {
+            dispatch(changeNote(note))
         }
     }
 }
