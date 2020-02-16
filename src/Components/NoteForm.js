@@ -25,13 +25,18 @@ class NoteForm extends React.Component {
     editNote = () => {
         console.log('EDIT?', this.state)
 
+        const noteData = {
+            ...this.state,
+            user_id: this.props.currentUser.id
+        }
+
         const reqObj = {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            body: JSON.stringify(this.state)
+            body: JSON.stringify(noteData)
         }
 
         fetch(`http://localhost:3000/notes/${this.state.id}`, reqObj)
