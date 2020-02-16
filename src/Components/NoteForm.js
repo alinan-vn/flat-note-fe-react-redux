@@ -105,7 +105,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = (state) => {
     return {
-        currentNote: state.currentNote
+        currentNote: state.currentNote,
+        currentUser: state.currentUser
     }
 
 }

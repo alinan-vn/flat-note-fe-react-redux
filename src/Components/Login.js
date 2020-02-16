@@ -1,22 +1,83 @@
 import React from 'react'
 import { Grid, Form } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { changeUser } from '../Actions/NoteActions'
 
-const Login = () => (
-  <Grid>
-    <Grid.Column width={3}>
-    </Grid.Column>
+class Login extends React.Component {
+    constructor(){
+        super()
+        this.state = {
+            usernameLog: undefined,
+            passwordLog: undefined
+        }
+    }
 
-    <Grid.Column width={10}>
-        <Form>
-            <Form.Input fluid label='Username' placeholder='username' />
-            <Form.Input fluid label='Password' placeholder='password' />
-            <Form.Button>Login!</Form.Button>
-        </Form>
-    </Grid.Column>
+    handleChange = (event) => {
+        this.setState({
+            [event.target.id]: event.target.value
+        })
+    }
 
-    <Grid.Column width={3}>
-    </Grid.Column>
-  </Grid>
-)
+    fetchUser = () => {
+        fetch('http://localhost:3000/users/')
+            .then(resp => resp.json())
+            .then(users => this.retrieveUser(users))
+    }
 
-export default Login
+    retrieveUser = (users) => {
+        let correctUser = users.filter(user => user.username === this.state.usernameLog )
+        console.log('loggin in?', correctUser[0])
+        this.props.changeUser(correctUser[0])
+    }
+
+    setUser = () => {
+        this.fetchUser()
+    }
+
+    render (){
+        return (
+            <Grid>
+                <Grid.Column width={3}>
+                </Grid.Column>
+
+                <Grid.Column width={10}>
+                    <Form>
+                        <Form.Input 
+                            fluid label='Username'
+                            id='usernameLog'
+                            value={this.state.usernameLog} 
+                            placeholder='username'
+                            onChange={this.handleChange} 
+                        />
+                        <Form.Input 
+                            fluid label='Password'
+                            id='passwordLog'
+                            value={this.state.passwordLog}  
+                            placeholder='password'
+                            onChange={this.handleChange} 
+                        />
+                        <Form.Button onClick={ this.setUser }>Login!</Form.Button>
+                    </Form>
+                </Grid.Column>
+
+                <Grid.Column width={3}>
+                </Grid.Column>
+            </Grid>
+        )
+    }
+}
+
+
+const mapStateToProps = () => {
+
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        changeUser: (user) => {
+            dispatch(changeUser(user))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

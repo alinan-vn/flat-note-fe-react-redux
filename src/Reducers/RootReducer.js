@@ -1,6 +1,6 @@
 function rootReducer (
     state = {
-        currentUser: null,
+        currentUser: {username: undefined},
         currentNote: null,
     },
     action
@@ -15,6 +15,12 @@ function rootReducer (
             return {
                 ...state,
                 currentNote: action.note[0]
+            }
+        case 'CHANGE_USER':
+            console.log('changing user:', action.user)
+            return {
+                ...state,
+                currentUser: action.user
             }
         default:
             // console.log('SETTLED FOR DEFAULT')

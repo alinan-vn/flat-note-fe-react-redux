@@ -23,11 +23,11 @@ class NoteList extends React.Component {
 
         return fetch(BASE_URL)
             .then(resp => resp.json())
-            .then(notes => this.renderNotes(notes, 'alejandro'))
+            .then(notes => this.renderNotes(notes))
     }
     
     renderNotes = (notes, username) => {
-        let filteredNotes = notes.filter(note => note.user.username === username )
+        let filteredNotes = notes.filter(note => note.user.username === this.props.currentUser.username )
         this.setState({
             notes: filteredNotes
         })
@@ -65,6 +65,8 @@ class NoteList extends React.Component {
             <Grid.Column width={4}>
             <Segment>
                 <hr />
+                <p>current user: <em>{ this.props.currentUser.username }</em></p>                
+                <hr />
                 { this.state.notes ? this.noteListCreator(this.state.notes) : null }
                 </Segment>
         </Grid.Column>
@@ -73,10 +75,11 @@ class NoteList extends React.Component {
 }
 
 // probably unneccessary
-// mapStateToProps = (state) => {
-//     return { 
-//     }
-// }
+const mapStateToProps = (state) => {
+    return { 
+        currentUser: state.currentUser
+    }
+}
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -86,4 +89,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(NoteList)
+export default connect(mapStateToProps, mapDispatchToProps)(NoteList)

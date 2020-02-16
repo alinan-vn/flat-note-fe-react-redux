@@ -5,14 +5,14 @@
     }
 }
 
-const revertNote = (note) => {
+const changeUser = (user) => {
     return {
-        type: 'REVERT_NOTE',
-        note
+        type: 'CHANGE_USER',
+        user
     }
 }
 
 export {
     changeNote,
-    revertNote
+    changeUser
 }
