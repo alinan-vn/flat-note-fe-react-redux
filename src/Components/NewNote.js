@@ -21,13 +21,18 @@ class NewNote extends React.Component {
     saveNote = () => {
         console.log('submit?', this.state)
 
+        const noteData = {
+            ...this.state,
+            user_id: this.props.currentUser.id
+        }
+
         const reqObj = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            body: JSON.stringify(this.state)
+            body: JSON.stringify(noteData)
         }
 
         fetch('http://localhost:3000/notes', reqObj)
@@ -75,7 +80,8 @@ class NewNote extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        currentNote: state.currentNote
+        currentNote: state.currentNote,
+        currentUser: state.currentUser
     }
 
 }
