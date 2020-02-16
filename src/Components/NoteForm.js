@@ -8,6 +8,7 @@ class NoteForm extends React.Component {
     constructor(){
         super()
         this.state = {
+            id: '',
             title: '',
             content: '',
             tags: ''
@@ -21,9 +22,27 @@ class NoteForm extends React.Component {
         })
     }
 
+    editNote = () => {
+        console.log('EDIT?', this.state)
+
+        const reqObj = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(this.state)
+        }
+
+        fetch(`http://localhost:3000/notes/${this.state.id}`, reqObj)
+            .then(resp => resp.json())
+            .then(json => {console.log('json??', json)})
+    }
+
     renderForm = () => {
         if (this.props.currentNote){
             this.setState({
+                id: this.props.currentNote.id,
                 title: this.props.currentNote.title,
                 content: this.props.currentNote.content,
                 tags: this.props.currentNote.tags
@@ -55,7 +74,7 @@ class NoteForm extends React.Component {
                     onChange={this.handleInputChange}
                 />
                 
-                <Form.Button>Save</Form.Button>
+                <Form.Button onClick={this.editNote}>Save</Form.Button>
                 <Form.Button>Delete</Form.Button>
 
             </Form>

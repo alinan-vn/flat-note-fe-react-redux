@@ -18,7 +18,7 @@ class NewNote extends React.Component {
         })
     }
 
-    saveNate = () => {
+    saveNote = () => {
         console.log('submit?', this.state)
 
         const reqObj = {
@@ -33,26 +33,6 @@ class NewNote extends React.Component {
         fetch('http://localhost:3000/notes', reqObj)
             .then(resp => resp.json())
             .then(json => {console.log('json??', json)})
-    }
-
-    nothingAtAll = () => {
-        let artistInfo = undefined
-        let genreInfo = undefined
-        const CONNECTIONS_URL = 'http://localhost:3000/connections'
-
-        const reqObj = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({artistName: artistInfo, genreName: genreInfo})
-        }
-    
-        fetch(CONNECTIONS_URL, reqObj)
-            .then(resp => resp.json())
-            .then(json => {console.log(json)}
-            )
     }
 
     render (){
@@ -83,7 +63,7 @@ class NewNote extends React.Component {
                         value = {this.state.tags}
                         onChange={this.handleInputChange}
                     />
-                    <Form.Button onClick={ this.saveNate }>Save</Form.Button>
+                    <Form.Button onClick={ this.saveNote }>Save</Form.Button>
                 </Form>
             </Grid.Column>
   
