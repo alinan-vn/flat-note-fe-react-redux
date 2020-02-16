@@ -44,6 +44,27 @@ class NoteForm extends React.Component {
             .then(json => {console.log('json??', json)})
     }
 
+    deleteNote = () => {
+        const noteData = {
+            ...this.state,
+            user_id: this.props.currentUser.id
+        }
+
+        const reqObj = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(noteData)
+        }
+
+        fetch(`http://localhost:3000/notes/${this.state.id}`, reqObj)
+            .then(resp => resp.json())
+            .then(json => {console.log('deleted?', json)})
+
+    }
+
     renderForm = () => {
         if (this.props.currentNote){
             this.setState({
@@ -80,7 +101,7 @@ class NoteForm extends React.Component {
                 />
                 
                 <Form.Button onClick={this.editNote}>Save</Form.Button>
-                <Form.Button>Delete</Form.Button>
+                <Form.Button onClick={this.deleteNote}>Delete</Form.Button>
 
             </Form>
         )
