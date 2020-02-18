@@ -78,22 +78,27 @@ class NoteForm extends React.Component {
         }
         return (
             <Form>
+                <p style={{color: 'white'}}>Title</p>
                 <Form.Input 
-                    fluid label='Title'
+                    fluid 
+                    // label='Title'
                     id='title'
                     placeholder='title will be rendered here to edit!'
                     value={ this.state.title }
                     onChange={this.handleInputChange}
                 />
+                <p style={{color: 'white'}}>Content</p>
                 <Form.TextArea 
-                    label='Content' 
+                    // label='Content' 
                     id='content'
                     placeholder='I bet you can guess what will be rendered in the content section ;)'
                     value={ this.state.content } 
                     onChange={this.handleInputChange}
                 />
+                <p style={{color: 'white'}}>Tags!</p>
                 <Form.Input 
-                    fluid label='Tags!'
+                    fluid 
+                    // label='Tags!'
                     id='tags'
                     placeholder='actually, tags wont be rendered here... will they?'     
                     value={ this.state.tags }
@@ -106,8 +111,6 @@ class NoteForm extends React.Component {
             </Form>
         )
     }
-
-  
 
     render () {
         return(
@@ -127,7 +130,6 @@ const mapDispatchToProps = dispatch => {
         }
     }
 }
-
 
 const mapStateToProps = (state) => {
     return {

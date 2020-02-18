@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Menu } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-export default class MenuExampleSecondary extends Component {
+class MenuLinks extends Component {
   state = { activeItem: 'home' }
 
   handleItemClick = (e, { name }) => {
@@ -19,12 +20,10 @@ export default class MenuExampleSecondary extends Component {
       fontWeight: 'bold',
       background: 'azure',
       textAlign: 'center'
-      // textDecoration: 'none',
-      // color: 'white'
     }
     
-
     return (
+      // <Menu color={'grey'} inverted>
       <Menu>
         <NavLink
           to = '/about'
@@ -46,7 +45,7 @@ export default class MenuExampleSecondary extends Component {
             background: 'aquamarine'
           }}
         >
-          Dashboard
+          { this.props.currentUser.id ? 'Dashboard' : '' }
         </NavLink>
         <Menu.Menu position='right'>
         <NavLink
@@ -58,7 +57,7 @@ export default class MenuExampleSecondary extends Component {
             background: 'aquamarine'
           }}
         >
-          + New Note
+          { this.props.currentUser.id ? '+ New Note' : '' }
         </NavLink>
         <NavLink
           to = '/login'
@@ -76,3 +75,11 @@ export default class MenuExampleSecondary extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.currentUser
+  }
+}
+
+export default connect(mapStateToProps)(MenuLinks)

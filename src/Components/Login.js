@@ -7,8 +7,8 @@ class Login extends React.Component {
     constructor(){
         super()
         this.state = {
-            usernameLog: undefined,
-            passwordLog: undefined
+            usernameLog: '',
+            passwordLog: ''
         }
     }
 
@@ -26,7 +26,6 @@ class Login extends React.Component {
 
     retrieveUser = (users) => {
         let correctUser = users.filter(user => user.username === this.state.usernameLog )
-        console.log('loggin in?', correctUser[0])
         this.props.changeUser(correctUser[0])
     }
 
@@ -42,15 +41,20 @@ class Login extends React.Component {
 
                 <Grid.Column width={10}>
                     <Form>
+                        <p style={{color: 'white'}}>Username</p>
                         <Form.Input 
-                            fluid label='Username'
+                            fluid 
+                            // label='Username'
                             id='usernameLog'
                             value={this.state.usernameLog} 
                             placeholder='username'
-                            onChange={this.handleChange} 
+                            onChange={this.handleChange}
+                            color={'white'} 
                         />
+                        <p style={{color: 'white'}}>Password</p>
                         <Form.Input 
-                            fluid label='Password'
+                            fluid 
+                            // label='Password'
                             id='passwordLog'
                             value={this.state.passwordLog}  
                             placeholder='password'
@@ -67,10 +71,8 @@ class Login extends React.Component {
     }
 }
 
-
-const mapStateToProps = () => {
-
-}
+// const mapStateToProps = () => {
+// }
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -80,4 +82,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(null, mapDispatchToProps)(Login)

@@ -3,8 +3,7 @@ import { Image } from 'semantic-ui-react'
 
 const backgroundAbout = () => (
     <div>
-        <h1 style = {{ textAlign: 'center' }}>Please Log In!</h1>
-        <Image src={require('../images/vaporware1.jpg')} fluid />
+        <h1 style = {{ textAlign: 'center', color:'white' }}>Please Log In!</h1>
     </div>
 )
 

@@ -14,7 +14,6 @@ class NoteList extends React.Component {
     }
 
     FetchNotes = (noteId = null) => {
-        // console.log(noteId)
         let BASE_URL = 'http://localhost:3000/notes/'
 
         if (noteId) {
@@ -47,7 +46,6 @@ class NoteList extends React.Component {
     }
 
     handleChangeNote = (noteId) => {
-        console.log('changeing note?', noteId)
         let findNote = this.state.notes.filter(note => note.id === noteId)
         this.setState = {
             clickedNoteId: findNote

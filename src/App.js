@@ -1,27 +1,54 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route
-} from 'react-router-dom';
 import NavBar from './Components/NavBar';
 import backgroundAbout from './Components/About'
 import Home from './Components/Home'
 import NewNote  from './Components/NewNote'
 import Login from './Components/Login'
+import { connect } from 'react-redux'
+
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom';
+
+class App extends React.Component {
 
 
-const App = (props) => {
-  return (
-    <Router>
+  home = () => {
+    return (
+      <Route exact path = '/home' component = { Home } />
+    )
+  }
+
+  newNote = () => {
+    return(
+      <Route exact path = '/new-note' component = { NewNote } />
+    )
+  }
+
+
+  render(){
+    return(
+      <Router>
       <div>
+        { console.log('will the real Slim Shady please stand up?', this.props.currentUser)}
         <NavBar />
         <Route exact path = '/about' component = { backgroundAbout } />
-        <Route exact path = '/home' component = { Home } />
-        <Route exact path = '/new-note' component = { NewNote } />
+
+        { this.props.currentUser.id ? this.home() : null }
+        { this.props.currentUser.id ? this.newNote() : null }
+
         <Route exact path = '/login' component = { Login } />
       </div>
     </Router>
-  );
-};
+    )
+  }
+}
 
-export default App
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.currentUser
+  }
+}
+
+export default connect(mapStateToProps)(App)
