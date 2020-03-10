@@ -7,8 +7,8 @@ class Login extends React.Component {
     constructor(){
         super()
         this.state = {
-            usernameLog: '',
-            passwordLog: ''
+            username: '',
+            password: ''
         }
     }
 
@@ -25,12 +25,40 @@ class Login extends React.Component {
     }
 
     retrieveUser = (users) => {
-        let correctUser = users.filter(user => user.username === this.state.usernameLog )
+        let correctUser = users.filter(user => user.username === this.state.username )
         this.props.changeUser(correctUser[0])
     }
 
-    setUser = () => {
-        this.fetchUser()
+    // setUser = () => {
+    //     this.fetchUser()
+    // }
+
+    setUser = e => {
+        e.preventDefault()
+
+        const userObj = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state)
+        }
+
+        this.setState({
+            ...this.state,
+            username: '',
+            password: ''
+        })
+
+        fetch('http://localhost:3000/auth', userObj)
+        .then(r => r.json())
+        .then(user => {
+            if (!user.error){
+                this.props.changeUser(user)
+            } else {
+                alert(user.error)
+            }
+        })
     }
 
     render (){
@@ -44,9 +72,8 @@ class Login extends React.Component {
                         <p style={{color: 'white'}}>Username</p>
                         <Form.Input 
                             fluid 
-                            // label='Username'
-                            id='usernameLog'
-                            value={this.state.usernameLog} 
+                            id='username'
+                            value={this.state.username} 
                             placeholder='username'
                             onChange={this.handleChange}
                             color={'white'} 
@@ -54,9 +81,8 @@ class Login extends React.Component {
                         <p style={{color: 'white'}}>Password</p>
                         <Form.Input 
                             fluid 
-                            // label='Password'
-                            id='passwordLog'
-                            value={this.state.passwordLog}  
+                            id='password'
+                            value={this.state.password}  
                             placeholder='password'
                             onChange={this.handleChange} 
                         />

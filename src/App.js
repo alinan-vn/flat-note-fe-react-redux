@@ -31,7 +31,7 @@ class App extends React.Component {
     return(
       <Router>
       <div>
-        { console.log('will the real Slim Shady please stand up?', this.props.currentUser)}
+        {/* { console.log('will the real Slim Shady please stand up?', this.props.currentUser)} */}
         <NavBar />
         <Route exact path = '/about' component = { backgroundAbout } />
 

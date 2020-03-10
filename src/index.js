@@ -10,6 +10,8 @@ import { createStore } from 'redux'
 
 import Vapor from './images/vaporware1.jpg'
 
+import { Image } from 'semantic-ui-react'
+
 const store = createStore(
     rootReducer, 
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
@@ -23,6 +25,19 @@ const backGroundImage = {
 
 }
 
+
+// ReactDOM.render(
+//   <Image 
+//     src={ Vapor }
+//   >
+//     <Provider store={store} >
+//         <App />
+//     </Provider>
+//   </Image>
+//   , 
+//   document.getElementById('root')
+// );
+
 ReactDOM.render(
     <div 
       // style={{backgroundColor: "#F6BB42"}}
@@ -35,6 +50,3 @@ ReactDOM.render(
     , 
     document.getElementById('root')
 );
-
-
-// backgroundImage: `url(${"images/image_03-1024x320.jpg"})`
