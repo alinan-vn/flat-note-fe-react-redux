@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Form } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { changeNote } from '../Actions/NoteActions'
+import { changeNote, saveNotes } from '../Actions/NoteActions'
 
 class NoteForm extends React.Component {
 
@@ -22,6 +22,20 @@ class NoteForm extends React.Component {
         })
     }
 
+
+    editStoreNotes = () => {
+        const newNotes = this.props.notes.map(note => {
+            if (note.id === this.state.id){
+                return this.state
+            } else {
+                return note
+            }
+        })
+
+        this.props.saveNotes(newNotes)
+
+    }
+
     editNote = () => { 
         const noteData = {
             ...this.state,
@@ -37,9 +51,11 @@ class NoteForm extends React.Component {
             body: JSON.stringify(noteData)
         }
 
+        this.editStoreNotes()
+
         fetch(`http://localhost:3000/notes/${this.state.id}`, reqObj)
-            .then(resp => resp.json())
-            .then(json => {console.log('json??', json)})
+        .then(resp => resp.json())
+        .then(json => {console.log('json??', json)})
     }
 
     deleteNote = () => {
@@ -79,7 +95,6 @@ class NoteForm extends React.Component {
                 <p style={{color: 'white'}}>Title</p>
                 <Form.Input 
                     fluid 
-                    // label='Title'
                     id='title'
                     placeholder='title will be rendered here to edit!'
                     value={ this.state.title }
@@ -87,7 +102,6 @@ class NoteForm extends React.Component {
                 />
                 <p style={{color: 'white'}}>Content</p>
                 <Form.TextArea 
-                    // label='Content' 
                     id='content'
                     placeholder='I bet you can guess what will be rendered in the content section ;)'
                     value={ this.state.content } 
@@ -96,7 +110,6 @@ class NoteForm extends React.Component {
                 <p style={{color: 'white'}}>Tags!</p>
                 <Form.Input 
                     fluid 
-                    // label='Tags!'
                     id='tags'
                     placeholder='actually, tags wont be rendered here... will they?'     
                     value={ this.state.tags }
@@ -125,6 +138,9 @@ const mapDispatchToProps = dispatch => {
     return {
         changeNote: (note) => {
             dispatch(changeNote(note))
+        },
+        saveNotes: notes => {
+            dispatch(saveNotes(notes))
         }
     }
 }
@@ -132,7 +148,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = (state) => {
     return {
         currentNote: state.currentNote,
-        currentUser: state.currentUser
+        currentUser: state.currentUser,
+        notes: state.notes
     }
 
 }
