@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Form } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { changeUser } from '../Actions/NoteActions'
+import { changeUser, saveNotes } from '../Actions/NoteActions'
 
 class Login extends React.Component {
     constructor(){
@@ -29,19 +29,28 @@ class Login extends React.Component {
         this.props.changeUser(correctUser[0])
     }
 
-    // setUser = () => {
-    //     this.fetchUser()
-    // }
+    fetchNotes = userId => {
+        fetch(`http://localhost:3000/user_notes/${userId}`)
+        .then(r => r.json())
+        .then(notes => {
+            this.props.saveNotes(notes)
+        })
+    }
 
     setUser = e => {
         e.preventDefault()
+
+        const userData = {
+            username: this.state.username,
+            password: this.state.password
+        }
 
         const userObj = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(this.state)
+            body: JSON.stringify(userData)
         }
 
         this.setState({
@@ -55,6 +64,7 @@ class Login extends React.Component {
         .then(user => {
             if (!user.error){
                 this.props.changeUser(user)
+                this.fetchNotes(user.id)
             } else {
                 alert(user.error)
             }
@@ -82,6 +92,7 @@ class Login extends React.Component {
                         <Form.Input 
                             fluid 
                             id='password'
+                            type='password'
                             value={this.state.password}  
                             placeholder='password'
                             onChange={this.handleChange} 
@@ -104,6 +115,9 @@ const mapDispatchToProps = dispatch => {
     return {
         changeUser: (user) => {
             dispatch(changeUser(user))
+        },
+        saveNotes: notes => {
+            dispatch(saveNotes(notes))
         }
     }
 }

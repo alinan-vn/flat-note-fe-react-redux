@@ -2,6 +2,7 @@ function rootReducer (
     state = {
         currentUser: {id: null, username: undefined},
         currentNote: null,
+        notes: []
     },
     action
 ){
@@ -13,6 +14,12 @@ function rootReducer (
             return {
                 ...state,
                 currentNote: action.note[0]
+            }
+        case 'SAVE_NOTES':
+            console.log('saving all notes', action.notes)
+            return {
+                ...state,
+                notes: action.notes
             }
         case 'CHANGE_USER':
             console.log('changing user:', action.user)

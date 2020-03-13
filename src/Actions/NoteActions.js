@@ -12,7 +12,15 @@ const changeUser = (user) => {
     }
 }
 
+const saveNotes = notes => {
+    return {
+        type: 'SAVE_NOTES',
+        notes
+    }
+}
+
 export {
     changeNote,
-    changeUser
+    changeUser,
+    saveNotes
 }

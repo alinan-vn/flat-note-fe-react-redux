@@ -1,4 +1,5 @@
 import 'semantic-ui-css/semantic.min.css'
+import './App.css'
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -17,32 +18,15 @@ const store = createStore(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
-const backGroundImage = {
-  height: '1000px',
-  // width: '1200px',
-  width: '100%',
-  backgroundImage: `url(${Vapor})`
-
-}
-
-
-// ReactDOM.render(
-//   <Image 
-//     src={ Vapor }
-//   >
-//     <Provider store={store} >
-//         <App />
-//     </Provider>
-//   </Image>
-//   , 
-//   document.getElementById('root')
-// );
+// const backGroundImage = {
+//   backgroundSize: 'contain',
+//   backgroundRepeat: 'no-repeat',
+//   backgroundPosition: 'center',
+//   backgroundImage: `url(${Vapor})`
+// }
 
 ReactDOM.render(
-    <div 
-      // style={{backgroundColor: "#F6BB42"}}
-      style={ backGroundImage }
-    >
+    <div>
       <Provider store={store} >
           <App />
       </Provider>

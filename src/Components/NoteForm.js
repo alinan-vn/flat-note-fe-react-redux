@@ -22,9 +22,7 @@ class NoteForm extends React.Component {
         })
     }
 
-    editNote = () => {
-        console.log('EDIT?', this.state)
-
+    editNote = () => { 
         const noteData = {
             ...this.state,
             user_id: this.props.currentUser.id

@@ -12,50 +12,27 @@ class NoteList extends React.Component {
             clickedNoteId: null,
         }
     }
-
-    FetchNotes = (noteId = null) => {
-        let BASE_URL = 'http://localhost:3000/notes/'
-
-        if (noteId) {
-            BASE_URL = BASE_URL + noteId
-        } 
-
-        return fetch(BASE_URL)
-            .then(resp => resp.json())
-            .then(notes => this.renderNotes(notes))
-    }
     
-    renderNotes = (notes, username) => {
-        let filteredNotes = notes.filter(note => note.user.username === this.props.currentUser.username )
-        this.setState({
-            notes: filteredNotes
+    noteListCreator = () => {
+        return this.props.notes.map(note => {
+            return (
+                <div key={note.id}>
+                    <div 
+                        className='ui divider' 
+                        key={note.id} 
+                        onClick={() => this.handleChangeNote(note.id) }
+                    >
+                        <p>{ note.title }</p>   
+                    </div>
+                    <hr />
+                </div>
+            )
         })
     }
 
-    noteListCreator = (notesArray) => {
-            return notesArray.map(note => {
-                return (
-                    <div key={note.id}>
-                        <div className='ui divider' key={note.id} onClick={() => this.handleChangeNote(note.id) }>
-                            <p>{ note.title }</p>   
-                        </div>
-                        <hr />
-                    </div>
-                )
-            })
-    }
-
     handleChangeNote = (noteId) => {
-        let findNote = this.state.notes.filter(note => note.id === noteId)
-        this.setState = {
-            clickedNoteId: findNote
-        }
+        let findNote = this.props.notes.filter(note => note.id === noteId)
         this.props.changeNote(findNote)
-    }
-
-
-    componentDidMount(){
-        this.FetchNotes()
     }
 
     render () {
@@ -65,7 +42,7 @@ class NoteList extends React.Component {
                 <hr />
                 <p>current user: <em>{ this.props.currentUser.username }</em></p>                
                 <hr />
-                { this.state.notes ? this.noteListCreator(this.state.notes) : null }
+                { this.props.notes ? this.noteListCreator() : null }
                 </Segment>
         </Grid.Column>
         )
@@ -75,7 +52,8 @@ class NoteList extends React.Component {
 // probably unneccessary
 const mapStateToProps = (state) => {
     return { 
-        currentUser: state.currentUser
+        currentUser: state.currentUser,
+        notes: state.notes
     }
 }
 

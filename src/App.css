@@ -1,4 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Advent Pro');
+
+
 .App {
   text-align: center;
   background-color: aqua;
+}
+
+body {
+  background-color: #12e2a3 ;
+}
+
+h1 {
+  font-family: 'Advent Pro';
+}
+
+p {
+  font-family: 'Advent Pro';
 }
