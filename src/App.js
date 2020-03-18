@@ -4,6 +4,7 @@ import backgroundAbout from './Components/About'
 import Home from './Components/Home'
 import NewNote  from './Components/NewNote'
 import Login from './Components/Login'
+import CreateAccount from './Components/CreateAccount'
 import { connect } from 'react-redux'
 
 import {
@@ -38,7 +39,8 @@ class App extends React.Component {
         { this.props.currentUser.id ? this.home() : null }
         { this.props.currentUser.id ? this.newNote() : null }
 
-        <Route exact path = '/login' component = { Login } />
+        <Route exact path = '/login' component={Login} />
+        <Route exact path = '/create-account' component={CreateAccount} />
       </div>
     </Router>
     )

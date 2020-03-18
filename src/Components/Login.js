@@ -71,6 +71,10 @@ class Login extends React.Component {
         })
     }
 
+    handleCreateAccount = () => {
+        this.props.history.push('/create-account')
+    }
+
     render (){
         return (
             <Grid>
@@ -98,6 +102,7 @@ class Login extends React.Component {
                             onChange={this.handleChange} 
                         />
                         <Form.Button onClick={ this.setUser }>Login!</Form.Button>
+                        <a style={{cursor: 'pointer'}} onClick={this.handleCreateAccount}>Create an account!</a>
                     </Form>
                 </Grid.Column>
 
