@@ -65,6 +65,7 @@ class Login extends React.Component {
             if (!user.error){
                 this.props.changeUser(user)
                 this.fetchNotes(user.id)
+                this.props.history.push('/new-note')
             } else {
                 alert(user.error)
             }

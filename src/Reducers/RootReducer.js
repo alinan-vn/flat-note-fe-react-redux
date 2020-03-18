@@ -27,6 +27,19 @@ function rootReducer (
                 ...state,
                 currentUser: action.user
             }
+        case 'ADD_NOTE':
+            console.log('adding note', action.note)
+            const newNotes = state.notes.push(action.note)
+            console.log(state.notes)
+            return state
+        case 'DELETE_NOTE':
+            console.log('deleting this note:', action.noteId)
+            const newerNotes = state.notes.filter(note => note.id !== action.noteId)
+            console.log('new notes after deletion', newerNotes)
+            return {
+                ...state,
+                notes: newerNotes
+            }
         default:
             return state
     }

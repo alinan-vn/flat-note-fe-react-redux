@@ -1,6 +1,7 @@
 import React from 'react'
 import { Grid, Form } from 'semantic-ui-react'
 import { connect } from 'react-redux'
+import { addNote } from '../Actions/NoteActions'
 
 class NewNote extends React.Component {
     constructor(){
@@ -19,8 +20,6 @@ class NewNote extends React.Component {
     }
 
     saveNote = () => {
-        console.log('submit?', this.state)
-
         const noteData = {
             ...this.state,
             user_id: this.props.currentUser.id
@@ -37,7 +36,10 @@ class NewNote extends React.Component {
 
         fetch('http://localhost:3000/notes', reqObj)
             .then(resp => resp.json())
-            .then(json => {console.log('json??', json)})
+            .then(note => {
+                console.log('json??', note)
+                this.props.addNote(note)
+            })
     }
 
     render (){
@@ -89,4 +91,12 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(NewNote)
+const mapDispatchToProps = dispatch => {
+    return {
+        addNote: note => {
+            dispatch(addNote(note))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewNote)

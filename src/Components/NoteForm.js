@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Form } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { changeNote, saveNotes } from '../Actions/NoteActions'
+import { changeNote, saveNotes, deleteNote } from '../Actions/NoteActions'
 
 class NoteForm extends React.Component {
 
@@ -75,7 +75,7 @@ class NoteForm extends React.Component {
 
         fetch(`http://localhost:3000/notes/${this.state.id}`, reqObj)
             .then(resp => resp.json())
-            .then(json => {console.log('deleted?', json)})
+            .then(json => {this.props.deleteNote(this.state.id)})
 
     }
 
@@ -141,6 +141,9 @@ const mapDispatchToProps = dispatch => {
         },
         saveNotes: notes => {
             dispatch(saveNotes(notes))
+        },
+        deleteNote: noteId => {
+            dispatch(deleteNote(noteId))
         }
     }
 }

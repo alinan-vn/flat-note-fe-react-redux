@@ -19,8 +19,24 @@ const saveNotes = notes => {
     }
 }
 
+const addNote = note => {
+    return {
+        type: 'ADD_NOTE',
+        note
+    }
+}
+
+const deleteNote = noteId => {
+    return {
+        type: 'DELETE_NOTE',
+        noteId
+    }
+}
+
 export {
     changeNote,
     changeUser,
-    saveNotes
+    saveNotes,
+    addNote,
+    deleteNote
 }
