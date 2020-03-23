@@ -37,46 +37,64 @@ class NoteForm extends React.Component {
     }
 
     editNote = () => { 
-        const noteData = {
-            ...this.state,
-            user_id: this.props.currentUser.id
+        if (this.state.title === ''){
+            alert('Please choose a note to EDIT!')
+        } else {
+            const noteData = {
+                ...this.state,
+                user_id: this.props.currentUser.id
+            }
+
+            const reqObj = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(noteData)
+            }
+
+            this.editStoreNotes()
+
+            fetch(`http://localhost:3000/notes/${this.state.id}`, reqObj)
+            .then(resp => resp.json())
+            .then(json => {console.log('json??', json)})
         }
-
-        const reqObj = {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(noteData)
-        }
-
-        this.editStoreNotes()
-
-        fetch(`http://localhost:3000/notes/${this.state.id}`, reqObj)
-        .then(resp => resp.json())
-        .then(json => {console.log('json??', json)})
+        
     }
 
     deleteNote = () => {
-        const noteData = {
-            ...this.state,
-            user_id: this.props.currentUser.id
-        }
+        if(this.state.title === ''){
+            alert('Please choose a note to DELETE!')
+        } else {
+            const noteData = {
+                ...this.state,
+                user_id: this.props.currentUser.id
+            }
 
-        const reqObj = {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(noteData)
-        }
+            const reqObj = {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(noteData)
+            }
 
-        fetch(`http://localhost:3000/notes/${this.state.id}`, reqObj)
+            fetch(`http://localhost:3000/notes/${this.state.id}`, reqObj)
             .then(resp => resp.json())
-            .then(json => {this.props.deleteNote(this.state.id)})
+            .then(json => {
+                this.props.deleteNote(this.state.id)
+            })
 
+            this.setState({
+                ...this.state,
+                title: '',
+                content: '',
+                tags: ''
+            })
+        }
+        
     }
 
     renderForm = () => {
@@ -87,7 +105,7 @@ class NoteForm extends React.Component {
                 content: this.props.currentNote.content,
                 tags: this.props.currentNote.tags
             })
-            this.props.changeNote([null])
+            this.props.changeNote(null)
 
         }
         return (
@@ -126,9 +144,7 @@ class NoteForm extends React.Component {
     render () {
         return(
             <Grid.Column width={10}>
-                
                 { this.renderForm() }
-
             </Grid.Column>
         )
     }

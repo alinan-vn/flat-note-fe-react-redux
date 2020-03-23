@@ -31,7 +31,8 @@ class NoteList extends React.Component {
     }
 
     handleChangeNote = (noteId) => {
-        let findNote = this.props.notes.filter(note => note.id === noteId)
+        let findNote = this.props.notes.find(note => note.id === noteId)
+        console.log('note found?', findNote)
         this.props.changeNote(findNote)
     }
 

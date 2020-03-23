@@ -7,9 +7,9 @@ class NewNote extends React.Component {
     constructor(){
         super()
         this.state = {
-            title: undefined,
-            content: undefined,
-            tags: undefined
+            title: '',
+            content: '',
+            tags: ''
         }
     }
 
@@ -34,6 +34,13 @@ class NewNote extends React.Component {
             body: JSON.stringify(noteData)
         }
 
+        this.setState({
+            ...this.state,
+            title: '',
+            content: '',
+            tags: ''
+        })
+
         fetch('http://localhost:3000/notes', reqObj)
             .then(resp => resp.json())
             .then(note => {
@@ -49,11 +56,10 @@ class NewNote extends React.Component {
                 </ Grid.Column>
   
                 <Grid.Column width={10}>
-                    <Form>
+                    <Form ref={form => this.form = form}>
                         <p style={{color: 'white'}}>Title</p>
                         <Form.Input 
                             fluid 
-                            // label='Title' 
                             id='title'
                             placeholder='my first note!'
                             value = {this.state.title}
@@ -61,7 +67,6 @@ class NewNote extends React.Component {
                         />
                         <p style={{color: 'white'}}>Content</p>
                         <Form.TextArea 
-                            // label='Content' 
                             placeholder='Wow! This really is amazing! I wish someone had thought of making a note maker sooner!' 
                             id='content'
                             value = {this.state.content}
@@ -70,13 +75,12 @@ class NewNote extends React.Component {
                         <p style={{color: 'white'}}>Tags!</p>
                         <Form.Input 
                             fluid 
-                            // label='Tags!' 
                             id='tags'
                             placeholder='Tag1, Tag2, Tag3, ...' 
                             value = {this.state.tags}
                             onChange={this.handleInputChange}
                         />
-                        <Form.Button onClick={ this.saveNote }>Save</Form.Button>
+                        <Form.Button onClick={this.saveNote}>Save</Form.Button>
                     </Form>
                 </Grid.Column>
             </Grid>

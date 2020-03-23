@@ -12,6 +12,12 @@ const changeUser = (user) => {
     }
 }
 
+const logoutUser = () => {
+    return {
+        type: 'LOGOUT_USER'
+    }
+}
+
 const saveNotes = notes => {
     return {
         type: 'SAVE_NOTES',
@@ -38,5 +44,6 @@ export {
     changeUser,
     saveNotes,
     addNote,
-    deleteNote
+    deleteNote,
+    logoutUser
 }

@@ -10,10 +10,10 @@ function rootReducer (
         case 'FIRST_CASE':
             return console.log('DID FIRST CASE SUCCESS')
         case 'CHANGE_NOTE':
-            console.log('change note action, current note is now:', action.note[0] )
+            console.log('change note action, current note is now:', action.note)
             return {
                 ...state,
-                currentNote: action.note[0]
+                currentNote: action.note
             }
         case 'SAVE_NOTES':
             console.log('saving all notes', action.notes)
@@ -26,6 +26,13 @@ function rootReducer (
             return {
                 ...state,
                 currentUser: action.user
+            }
+        case 'LOGOUT_USER':
+            console.log('User logs out')
+            return {
+                currentUser: {id: null, username: undefined},
+                currentNote: null,
+                notes: []
             }
         case 'ADD_NOTE':
             console.log('adding note', action.note)

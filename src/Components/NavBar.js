@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Menu } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { logoutUser } from '../Actions/NoteActions'
 
 class MenuLinks extends Component {
   state = { activeItem: 'home' }
@@ -10,6 +11,13 @@ class MenuLinks extends Component {
     this.setState({
       activeItem: name 
     })
+  }
+
+  logout = () => {
+    if (this.props.currentUser.id){
+      console.log('logging use out')
+      this.props.logoutUser()
+    }
   }
 
   render(){
@@ -67,8 +75,9 @@ class MenuLinks extends Component {
           activeStyle = {{
             background: 'aquamarine'
           }}
+          onClick = {this.logout}
         >
-          Login
+          { !this.props.currentUser.id ? 'Login' : 'Logout' }
         </NavLink>
         </Menu.Menu>
       </Menu>
@@ -82,4 +91,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(MenuLinks)
+const mapDispatchToProps = dispatch => {
+  return {
+    logoutUser: () => {
+      dispatch(logoutUser())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenuLinks)
