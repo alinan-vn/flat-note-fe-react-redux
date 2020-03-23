@@ -1,7 +1,18 @@
 import React from 'react'
 import { Grid } from 'semantic-ui-react'
 
+const backStyle = {
+    background: '#44d9e6', 
+    borderRadius: '10px', 
+    marginTop: '30px',
+    boxShadow: '5px 10px #3dc4d0',
+    fontSize: '20px'
+}
+
 const backgroundAbout = () => (
+
+    
+    
     <Grid>
         <Grid.Column width={3} />
 
@@ -9,16 +20,16 @@ const backgroundAbout = () => (
             width={10} 
             style={{fontColor: '#e4fcf9'}}
         >
-            <h1 style={{textAlign: 'center'}}>About FlatNote</h1>
-            <p>
-                FlatNote is a simple web application that serves to hold notes and thoughts you may have that can be deleted and editted later on.
-            </p>
-            <p>
-                Currently, you need to create an account which is seeded in the backend. Then you may log in to use the functionalities.
-            </p>
-            <p>
-                Creating a user in the web application itself will be available soon. 
-            </p>
+            <div style={backStyle}>
+                <h1 style={{textAlign: 'center'}}>About FlatNote</h1>
+                <p style={{marginLeft: '10px'}}>
+                    FlatNote is a simple web application that serves to hold notes and thoughts you may have that can be deleted and editted later on.
+                </p>
+                <p style={{marginLeft: '10px'}}>
+                    Create a user to get started! Note: do not forget your password, a simple password such as 'guest' or 'password' or '123' is recommended for this small project. 
+                </p><br />
+            </div>
+            
         </Grid.Column>
     </Grid>
 )
